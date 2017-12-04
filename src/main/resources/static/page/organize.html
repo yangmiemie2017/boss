@@ -1,0 +1,124 @@
+<div class="container contentBG">
+	<div class="panel panel-default detail-table">
+		<div class="panel-heading text-bold">
+			&nbsp;&nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Raise
+			Pati
+		</div>
+		<div class="panel-body">
+			<div class="listTable table-responsive">
+			
+                <div class="col-xs-12" ng-if="errorData" ng-repeat="error in errorData | filter: {field : '_ErrorSummary'}">
+                    <div class="row alert alert-warning">{{ error.message }}</div>
+                </div>
+                <div class="col-xs-12" ng-if="infoData.complete">
+                    <div class="row alert alert-success">
+                        User Update <strong>Success!</strong>
+                    </div>
+                </div>
+			
+				<div class="col-xs-12">
+					<form class="form-horizontal" name="updateForm" novalidate>
+						<input type="hidden" ng-model="" />
+						<div class="form-group">
+							<lable for="Theme"
+								class="col-xs-12 col-sm-2 control-label text-bold">Theme:</lable>
+							<div class="col-xs-12 col-sm-4">
+								<input type="text" ng-model="data.topic" class="form-control" id="theme">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<lable class="col-xs-12 col-sm-2 control-label text-bold">Select
+							Date:</lable>
+							<div class="col-xs-12 col-sm-4 input-control text"
+								data-role="datepicker" data-date="1972-12-21"
+								data-format="mm/dd/yyyy">
+								<input type="text" ng-model="data.date">
+								<button class="button">
+									<span class="mif-calendar"></span>
+								</button>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<lable for="Location"
+								class="col-xs-12 col-sm-2 control-label text-bold">Location:</lable>
+							<div class="col-xs-12 col-sm-4">
+								<input type="text" ng-model="data.address" class="form-control" id="locate">
+							</div>
+							<div class="col-xs-12 col-sm-1">
+<!--                                 <input type="button" value="Select" class="btn btn-primary" id="btnclick" > -->
+                                <button type="button" value="Select" class="btn btnStyle" ng-click="showMap()">Select</button>
+                            </div>
+                            <input type="hidden" ng-model="data.lng">
+                            <input type="hidden" ng-model="data.lat">
+						</div>
+
+						<div class="form-group">
+							<lable for="pc"
+								class="col-xs-12 col-sm-2 control-label text-bold">People
+							Count:</lable>
+							<div class="col-xs-12 col-sm-4">
+								<input type="text" ng-model="data.number" class="form-control">
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label for="pay"
+								class="col-xs-12 col-sm-2 control-label text-bold">Pay:</label>
+							<div class="col-xs-12 col-sm-4">
+								<select class="form-control" ng-model="data.type" id="pay">
+									<option value="A">AA</option>
+									<option value="M">Pay by me</option>
+									<option value="N">No Fee</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="note"
+								class="col-xs-12 col-sm-2 control-label text-bold">Note:</label>
+							<div class="col-xs-12 col-sm-4">
+
+									<label>
+									<textarea class="form-control" rows="8" id="signature" ng-model="data.note" placeholder="Enter Note"></textarea>
+                                    </label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-sm-12 text-right list-btn">
+			<button type="button" value="Update" class="btn btnStyle"
+				ng-click="saveOrg()">Save</button>
+		</div>
+	</div>
+	
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title" id="myModalLabel">选择地点</h4>
+            </div>
+            <div class="modal-body">
+            
+            <iframe id="map" scr="/baidu/locate.html" width="100%" height="100%" frameborder="0"></iframe>  
+            
+            </div>
+            <div class="modal-footer">
+<!--                 <input type="button" value="完成" class="btn btn-primary" id="btnvalue" > -->
+                <button type="button" value="Select" class="btn btnStyle" ng-click="closeMap()">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+</div>

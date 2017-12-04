@@ -1,0 +1,160 @@
+<div class="container contentBG">
+    <div class="panel panel-default detail-table">
+        <div class="panel-heading text-bold">
+            &nbsp;&nbsp;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;User Update
+        </div>
+        <div class="panel-body">
+	        <div class="listTable table-responsive">
+				<div class="col-xs-12" ng-if="errorData" ng-repeat="error in errorData | filter: {field : '_ErrorSummary'}">
+					<div class="row alert alert-warning">{{ error.message }}</div>
+				</div>
+				<div class="col-xs-12" ng-if="infoData.complete">
+					<div class="row alert alert-success">
+						User Update <strong>Success!</strong>
+					</div>
+				</div>
+				
+				<div class="col-xs-12">
+                <form class="form-horizontal" name="updateForm" novalidate>
+	                <input type="hidden" ng-model="user.id"/>
+		            <div class="form-group">
+	                    <lable for="userID" class="col-xs-12 col-sm-2 control-label text-bold">User ID:</lable>
+	                    <div class="col-xs-12 col-sm-4">
+	                        <input type="text" ng-model="user.user.userName" class="form-control" id="userID" name="user" disabled>
+	                    </div>
+	                </div>
+					<div class="form-group">
+						<label for="email" class="col-xs-12 col-sm-2 control-label text-bold">Email:</label>
+						<div class="col-xs-12 col-sm-4">
+						    <input type="email" class="form-control" id="email" ng-model="user.user.email" name="mail" placeholder="Enter Email">
+<!-- 						    <span class="registInfoMessage" ng-show="(registForm.mail.$invalid &&registForm.mail.$touched) || (registForm.mail.$invalid && registForm.$submitted)">
+						     * Please check your Email ! </span> -->
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="col-xs-12" ng-if="errorData" ng-repeat="error in errorData | filter: {field : 'user.email'}">
+	                            <span class="registInfoMessage">* {{ error.message }}</span>
+	                        </div>
+                        </div>
+					</div>
+					<div class="form-group">
+                        <label for="status" class="col-xs-12 col-sm-2 control-label text-bold">Status:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <select class="form-control" ng-model="user.user.status" id="status">
+                                <option value="A">Active</option>
+                                <!-- <option value="N">Not Active</option> -->
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12" ng-if="errorData" ng-repeat="error in errorData | filter: {field : 'user.status'}">
+                                <span class="registInfoMessage">* {{ error.message }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="role" class="col-xs-12 col-sm-2 control-label text-bold">Roles:</label>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="checkbox" ng-repeat="role in user.user.roles track by $index">
+                                <label><input type="checkbox" ng-model="user.user.roles[$index].selected" ng-true-value="true" ng-false-value="false">{{role.name}}</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12" ng-if="errorData" ng-repeat="error in errorData | filter: {field : 'user.roles'}">
+                                <span class="registInfoMessage">* {{ error.message }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signature" class="col-xs-12 col-sm-2 control-label text-bold">Signature:</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <textarea class="form-control" rows="8" id="signature" ng-model="user.user.signature" placeholder="Enter Signature"></textarea>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12" ng-if="errorData" ng-repeat="error in errorData | filter: {field : 'user.signature'}">
+                                <span class="registInfoMessage">* {{ error.message }}</span>
+                            </div>
+                        </div>
+                    </div>
+					</form>
+                </div>
+	        </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-right list-btn">
+            <button type="button" value="Update" class="btn btnStyle" ng-click="userUpdate()">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Update
+            </button>
+            <button type="button" value="Cancel" class="btn btnStyle" ui-sref="app.userList">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+<!-- 	<div class="form-group login-icon">
+		<img src="../images/Capture.PNG">
+	</div>
+	<div class="regist-title">
+		<p class="getStarted">Update User</p>
+	</div>
+	<div class="registLayout">
+		<div class=" col-xs-12 col-sm-4 loginFormBG">
+			<form name="updateForm" novalidate>
+				<div class="form-group">
+					<label for="userID">User ID:</label> <input type="text"
+						ng-model="user.userName" class="form-control" id="userID"
+						name="user" disabled>
+				</div>
+				<div class="form-group">
+					<label for="emaiil">Email:</label> <input type="email"
+						class="form-control" id="email" ng-model="user.email" name="mail"
+						placeholder="Enter Email"> <span class="registInfoMessage"
+						ng-show="(registForm.mail.$invalid &&registForm.mail.$touched) || (registForm.mail.$invalid && registForm.$submitted)">
+						* Please check your Email ! </span>
+				</div>
+				
+				<div id="field">
+					<div class="form-group" data-placeholder="change Status"
+						data-allow-clear="true">
+						<label for="status">status:</label> <select
+							class="full-size form-control" ng-model="user.status" id="status">
+							<option value="A">Active</option>
+							<option value="N">Not Active</option>
+						</select>
+					</div>
+
+					<div class="form-group" data-placeholder="change role"
+						data-allow-clear="true">
+						<label for="role">role:</label> <select
+							class="full-size form-control" ng-model="user.role" id="role">
+							<option value="U">User</option>
+							<option value="A">Admin</option>
+						</select>
+					</div>
+				</div>
+				
+				<input type="hidden" ng-model="user.id" />
+				<Button ng-click="userUpdate()" class="btn btn-primary btn-block">Update</Button>
+			</form>
+		</div>
+	</div> -->
+
+	<div class="modal fade" id="success" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Success</h4>
+				</div>
+				<div class="modal-body">Update User successfully</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger" type="button" data-dismiss="modal"
+						aria-hidden="true">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

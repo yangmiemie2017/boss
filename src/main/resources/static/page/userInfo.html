@@ -1,0 +1,29 @@
+<div class="homeRgOne">
+	<div class="user-pic">
+		<div class="text-center">
+			<img src="images/man.png">
+		</div>
+		<div class="user-info">
+			<p class="text-center user-name">
+				Hello, <span>{{userDetails.username}}</span>
+			</p>
+			<table class="table table-responsive">
+				<tr>
+					<td class="info-title">Name</td>
+					<td>{{userDetails.username}}</td>
+				</tr>
+				<tr>
+					<td class="info-title">Email</td>
+					<td>{{userDetails.email}}</td>
+				</tr>
+				<tr>
+                    <td class="info-title">Role</td>
+                    <td>
+                        <p ng-repeat="r in userRoles">{{r.name}}</p>
+                    </td>
+                </tr>
+			</table>
+
+		</div>
+	</div>
+</div>
